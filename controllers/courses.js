@@ -28,3 +28,18 @@ exports.getCourses = asyncHandler(async(req, res, next)=>{
         data: courses
     })
 })
+
+
+//@desc    GET single course
+//@route   GET /api/v1/courses/:id
+//@access  Public
+
+exports.getCourse = asyncHandler(async(req, res, next)=>{
+  
+
+    res.status (200).json({
+        success: true,
+        count: courses.length,
+        data: courses
+    })
+})
