@@ -4,7 +4,7 @@ const asyncHandler = require ('../middleware/async');
 const geocoder = require ('../utils/geocoder')
 const Bootcamp = require('../models/Bootcamp');
 
-//@desc    GET all bootcamps
+//@desc    GET all bootcamps 
 //@route   GET /api/v1/bootcamps
 //@access  Public
 
@@ -185,9 +185,7 @@ exports.bootcampPhotoUpload = asyncHandler(async (req, res, next) => {
     }
 
     if(!req.files){
-        return next(
-            new ErrorResponse(`Please upload a file`,400)
-        );
+        return next(new ErrorResponse(`Please upload a file`,400));
     }
     
     const file = req.files.file;
@@ -196,6 +194,7 @@ exports.bootcampPhotoUpload = asyncHandler(async (req, res, next) => {
     if(!file.mimetype.startsWith('image')){
         return next(new ErrorResponse(`Please upload an image file`, 400));
     }
+
 
     //Check filesize
     if(file.size > process.env.MAX_FILE_UPLOAD){
