@@ -9,11 +9,9 @@ const Bootcamp = require('../models/Bootcamp');
 //@access  Public
 
 exports.getBootcamps = asyncHandler(async (req, res, next)  => {
-        
-
         res
         .status(200)
-        .json({success: true, count: bootcamps.length,pagination, data: bootcamps})
+        .json(res.advancedResults);
         
      })
 //@desc    GET Single bootcamp
