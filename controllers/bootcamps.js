@@ -9,9 +9,7 @@ const Bootcamp = require('../models/Bootcamp');
 //@access  Public
 
 exports.getBootcamps = asyncHandler(async (req, res, next)  => {
-        res
-        .status(200)
-        .json(res.advancedResults);
+        res.status(200).json(res.advancedResults);
         
      })
 //@desc    GET Single bootcamp
