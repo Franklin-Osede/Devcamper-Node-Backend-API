@@ -98,6 +98,9 @@ exports.forgotPassword = asyncHandler (async(req, res, next) => {
         return next(new ErrorResponse('There is no user with that email', 404));
     }
 
+    //Get reset token  
+    const resetToken = user.getResetPasswordToken();
+
     res.status(200).json({
        success: true,
        data: user
