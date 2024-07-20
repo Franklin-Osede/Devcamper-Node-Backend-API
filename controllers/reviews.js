@@ -43,52 +43,45 @@ exports.getReview = asyncHandler(async(req, res, next)=>{
 }) 
 
 //@desc    Add review
-//@route   POST /api/v1/bootcamps/:boocampId/reviews
+//@route   POST /api/v1/reviews
 //@access  Private
 
-exports.addReview = asyncHandler(async(req, res, next)=>{
+exports.addReview = asyncHandler(async (req, res, next) => {
     req.body.bootcamp = req.params.bootcampId;
-    req.body.user = req.user.id
+    req.body.user = req.user.id;
 
     const bootcamp = await Bootcamp.findById(req.params.bootcampId);
-    
-    if(!bootcamp){
-        return next(new ErrorResponse(`No bootcamp with the id of ${req.params.bootcampId}`,
-        404))
+    if (!bootcamp) {
+        return next(new ErrorResponse(`No bootcamp found with the id of ${req.params.bootcampId}`, 404));
     }
 
     const review = await Review.create(req.body);
 
-
     res.status(201).json({
-        success:true,
-        data:review
-    })
+        success: true,
+        data: review
+    });
 });
 
+// Update an existing review
+exports.updateReview = asyncHandler(async (req, res, next) => {
+    let review = await Review.findById(req.params.id);
 
-//@desc    Add review
-//@route   POST /api/v1/bootcamps/:boocampId/reviews
-//@access  Private
-
-exports.addReview = asyncHandler(async(req, res, next)=>{
-    req.body.bootcamp = req.params.bootcampId;
-    req.body.user = req.user.id
-
-    const bootcamp = await Bootcamp.findById(req.params.bootcampId);
-    
-    if(!bootcamp){
-        return next(new ErrorResponse(`No bootcamp with the id of ${req.params.bootcampId}`,
-        404))
+    if (!review) {
+        return next(new ErrorResponse(`No review found with the id of ${req.params.id}`, 404));
     }
 
-    const review = await Review.create(req.body);
+    if (review.user.toString() !== req.user.id && req.user.role !== 'admin') {
+        return next(new ErrorResponse("Not authorized to update review", 401));
+    }
 
+    review = await Review.findByIdAndUpdate(req.params.id, req.body, {
+        new: true,
+        runValidators: true
+    });
 
-    res.status(201).json({
-        success:true,
-        data:review
-    })
+    res.status(200).json({
+        success: true,
+        data: review
+    });
 });
-
-this.constructor.getAverageRating(this.bootcamp);
