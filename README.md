@@ -43,6 +43,16 @@ DevCamper is a backend API for a bootcamp directory website, designed to serve a
 - Admin functionalities to create, update, and delete users
 - Security measures including encryption, XSS protection, rate limiting, prevention of NoSQL injections, HTTP param pollution protection, and CORS
 
+## Security
+
+- Encrypt passwords and reset tokens
+- Prevent NoSQL injections
+- Add headers for security(helmet)
+- Prevent cross site scripting - XSS
+- Add a rate limit for request of 100 requests per 10 minutes
+- Protect against http param pollution
+- Use cors to make API public
+
 ## Documentation
 - Postman for API route testing and documentation
 - Docgen for generating HTML documentation files from Postman collections
